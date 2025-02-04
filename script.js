@@ -15,12 +15,36 @@ function aiChoice(){
         { return "scissors"}
 }
 
-console.log(aiChoice())
-
 //prompts player input and lowercases the string
 function playerChoice(){
   let pChoice = prompt("Choose between Rock, Paper and Scissors" ).toLowerCase()
   if(pChoice == "rock" || pChoice == "paper" || pChoice=="scissors") {return pChoice}
-  else {return "This answer isnt valid"} 
+  else {return "This answer isnt valid"}
+  
+  playRound()
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
+
+// Counts score and determines win/lose/draw conditions
+function playRound(pChoice, aiChoice){
+
+    if(pChoice == aiChoice) {console.log("You draw!");}
+        else if (pChoice == "rock" && aiChoice == "scissors" || pChoice == "scissors" && aiChoice == "paper" || pChoice == "paper" && aiChoice == "rock")
+        {console.log("Congratulations you've won this round"); playerScore = playerScore + 1;}
+        else{console.log("You've lost this round, try again"); computerScore = computerScore + 1 ;}
+
+    }
+
+    const humanSelection = playerChoice();
+    const aiSelection = aiChoice()
+
+
+    playRound(humanSelection, aiSelection)
+
+    console.log(aiSelection)
+
+    console.log(playerScore)
+    console.log(computerScore)
