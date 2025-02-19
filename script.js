@@ -13,9 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const scores = document.createElement("div")
     const pScoreContent = document.createElement ("p")
     const comScoreContent = document.createElement("p")
+    const gameWinner = document.createElement ("p")
     statDiv.append(scores)
     scores.append(pScoreContent)
     scores.append(comScoreContent)    
+    scores.append(gameWinner)
 
     function scoreCount(){
        pScoreContent.textContent = "Player score: " + playerScore;
@@ -77,16 +79,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (roundsPlayed >= 5) {
             if (playerScore > computerScore) {
-              const winText =  document.createTextNode("Congratulations, you've won the game!"), roundsPlayed = 0;
+              gameWinner.textContent = "Congratulations, you've won the game!"; roundsPlayed = 0;
                 computerScore = 0
                 playerScore = 0
             
             } else if (computerScore > playerScore) {
-                document.createTextNode("The computer has won the game!"), roundsPlayed = 0;
+                gameWinner.textContent = "The computer has won the game!"; roundsPlayed = 0;
                 computerScore = 0 
                 playerScore = 0
             } else {
-                console.log("It's a draw!"), roundsPlayed = 0;
+                gameWinner.textContent = "It's a draw!"; roundsPlayed = 0;
                 computerScore = 0
                 playerScore = 0
             }
