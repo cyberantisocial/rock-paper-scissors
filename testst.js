@@ -26,7 +26,7 @@ let playerScore = 0;
 let computerScore = 0;
 let roundsPlayed = 0
 
-
+/* 
 function playGame(){
     //set scores to 0 at the beggining of a game
 
@@ -47,7 +47,7 @@ function playGame(){
             
             // Determines win lose draw condition for the game
     
-              
+               */
         
 
 const humanSelection = playerChoice();

@@ -1,46 +1,96 @@
-function playGame(){
+document.addEventListener("DOMContentLoaded", () => {
+    let pChoice;
     let playerScore = 0;
     let computerScore = 0;
-    playRound()
+    let roundsPlayed = 0;
 
-function playRound(){
-    let roundsPlayed = 0
-    if (playerScore > computerScore && roundsPlayed == 5){console.log("Congratulations you've won the game");}
-    else if (computerScore >= playerScore && roundsPlayed == 5) {console.log("The computer has won the game")}
-    else if (computerScore == playerScore && roundsPlayed == 5) {console.log("You draw")}
-    else for (let i = 0; i < 5; i++) {gameStart()}    
-     
+    const btnRock = document.querySelector("#rock");
+    const btnPaper = document.querySelector("#paper");
+    const btnScissors = document.querySelector("#scissors");
+    const divButton = document.querySelector(".buttons");
+    const statDiv = document.querySelector("#stats")
+
+    const scores = document.createElement("div")
+    const pScoreContent = document.createElement ("p")
+    const comScoreContent = document.createElement("p")
+    statDiv.append(scores)
+    scores.append(pScoreContent)
+    scores.append(comScoreContent)    
+
+    function scoreCount(){
+       pScoreContent.textContent = "Player score: " + playerScore;
+       comScoreContent.textContent = "Computer score: " + computerScore
+    }
     
 
-function gameStart(){
-//prompts player input and lowercases the string
-function playerChoice(){
-    let pChoice = prompt("Choose between Rock, Paper and Scissors" ).toLowerCase()
-    if(pChoice == "rock" || pChoice == "paper" || pChoice=="scissors") {return pChoice}
-    else {return "This answer isnt valid"}
-  }
 
-  // computer chooses between rock paper and scissors
-function aiChoice(){
-    let randomNum = Math.floor(Math.random()*3)
-    if(randomNum == 1)
-        {return "rock"}
-    else if (randomNum == 2)
-        {return "paper"
-    }else
-        { return "scissors"} ;
-    
-    console.log(aiChoice())}
-        //play round
-function round(pChoice, aiChoice){
-    if(pChoice == aiChoice) {console.log("You draw!");}
-            else if (pChoice == "rock" && aiChoice == "scissors" || pChoice == "scissors" && aiChoice == "paper" || pChoice == "paper" && aiChoice == "rock")
-            {console.log("Congratulations you've won this round"); playerScore = playerScore + 1;}
-            else{console.log("You've lost this round, try again"); computerScore = computerScore + 1 ;}
-            }
-            round(playerChoice(), aiChoice());
+    btnRock.addEventListener("click", () => {
+        pChoice = "rock";
+        playRound();
+    });
+
+    btnPaper.addEventListener("click", () => {
+        pChoice = "paper";
+        playRound();
+    });
+
+    btnScissors.addEventListener("click", () => {
+        pChoice = "scissors";
+        playRound();
+    });
+
+
+    function aiChoice() {
+        let randomNum = Math.floor(Math.random() * 3);
+        if (randomNum === 0) {
+            return "rock";
+        } else if (randomNum === 1) {
+            return "paper";
+        } else {
+            return "scissors";
         }
     }
-}
 
-    playGame();
+    function playRound() {
+        let computerChoice = aiChoice();
+        console.log("Player choice:", pChoice);
+        console.log("Computer choice:", computerChoice);
+
+        if (pChoice === computerChoice) {
+            console.log("You draw!"); roundsPlayed += 1; scoreCount(); ;
+        } else if (
+            (pChoice === "rock" && computerChoice === "scissors") ||
+            (pChoice === "scissors" && computerChoice === "paper") ||
+            (pChoice === "paper" && computerChoice === "rock")
+        ) {
+            console.log("Congratulations, you've won this round!");
+            playerScore += 1;
+            roundsPlayed += 1
+            scoreCount()
+        } else {
+            console.log("You've lost this round, try again.");
+            computerScore += 1;
+            roundsPlayed += 1
+            scoreCount()
+        }
+
+
+        if (roundsPlayed >= 5) {
+            if (playerScore > computerScore) {
+              const winText =  document.createTextNode("Congratulations, you've won the game!"), roundsPlayed = 0;
+                computerScore = 0
+                playerScore = 0
+            
+            } else if (computerScore > playerScore) {
+                document.createTextNode("The computer has won the game!"), roundsPlayed = 0;
+                computerScore = 0 
+                playerScore = 0
+            } else {
+                console.log("It's a draw!"), roundsPlayed = 0;
+                computerScore = 0
+                playerScore = 0
+            }
+        }
+    }
+})
+
